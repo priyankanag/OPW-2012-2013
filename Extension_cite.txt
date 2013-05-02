@@ -1,0 +1,98 @@
+
+Taking from the top: 
+
+I got a clean MediaWiki installed from Git, with the following extensions: 
+• Cite 
+• ParserFunctions 
+• Gadgets 
+• Vector 
+• WikiEditor 
+• SyntaxHighlight 
+
+Getting 'cite' option into the toolbar of MediaWiki's editing page 
+
+For the cite option, we need to get the WikiEditor's latest version installed first (presently it is 
+0.3.1). The WikiEditor is the basic toolbar that we get to see when we switch to the edit mode of 
+any wiki article. When we initiall install the WikiEditor, we will get the basic version of the toolbar 
+which looks like: 
+Well, this bar is required to be installed as the citation option will need to later added to the same 
+bar after the help option. 
+When we successfully install the Cite extension, it gives the flexibility to use the <ref> and 
+<references/>. These comes along with the Cite.php under the Cite extension folder. Cite allows the 
+editor to create the footnotes. 
+Example: 
+References 
+1. ^ Miller, The Sun, Oxford, 2005, p. 23. 
+2. ^ Brown, The Moon, 2006, Penguin, p. 46. 
+3. ^ Smith, The Universe, Random House, 2005, p. 334. 
+
+Getting RefToolbar with the 'cite' option in place: 
+RefToolbar refers to a series of MediaWiki extensions which are written in JavaScript to add 
+functionality to the editing toolbar. The biggest of its example is the instance to help with citation 
+templates which we will discuss more in details here. 
+To add the RefToolbar in our Wiki, we will need to get the MediaWiki:RefToolbar.js file in our own 
+wiki. Along with this .js file, we will need a few more JavaScript files placed properly in our Wiki 
+before we can get the citation template to get working. These files are: 
+• MediaWiki:common.js 
+• MediaWiki:RefToolbarBase.js 
+• MediaWiki:RefToolbar.js 
+• MediaWiki:RefToolbarMessages-en.js 
+• MediaWiki:RefToolbarConfig.js 
+Its advisable to install the js files in the same pattern as they are listed as they comes in the same 
+hierarchy of use as listed. 
+# common.js: common.js is the only JavaScript which is for all users. Otherwise most .js files are 
+user specific. 
+After the RefToolbar is properly configured i.e. after we have added the script from 
+RefToolbarConfig.js into our own Wiki, we can go to the edit option of any page and if all rest 
+scripts are properly in place, the citation template should now be available. 
+Well, one important key note while working with the JavaScripts in MediaWiki is- whenever we 
+add a new JavaScript file in our own wiki, we need to clear the browser's cache or bypass the 
+browser's cache and then check if its implemented properly. 
+
+Customizing the Citation template as per user requirements: 
+As already discussed above, there are a few java script files which are mainly responsible for the 
+citation template. Among these files, the two most important files which are mainly responsible 
+for what we can view on the template are: 
+
+• Media Wiki:RefToolbarMessages-en.js: 
+Once, you have the 'Cite' option placed, you will see that the options you are getting under the Cite-template are all in English. Now, its an obvious thing that in your language's Wikipedia, you will not want to have a Citation template which shows options in English, you will want the options to come in your own language. 
+Some modification is required here to the Media Wiki:RefToolbarMessages-en.js file. Well, instead of Messages-en.js, we are free to use anything else like Messages-bn.js etc but we just need to make sure that wherever this page is being called from, the name is rightly placed there.
+In this file, there are the set of strings which needs to translated. Once all the strings of this page are translated into the local language, the Citation template in ready to go, in the local language. The work is this simple. No more modification is required anywhere else.
+
+
+How I customized or made changes in a few codes to make the JavaScripts a bit more userfriendly and easier to deal with:
+
+In the RefToolbarLegacy.js file, I did replace all the hardcoded values with variables i.e. 
+var option1=”cite web”;
+var option2=”cite book”; etc.
+
+Doing this helps one make the template modification for 'Cite' easier. Whenever we need the template in our own Wikipedia Language, we can change the variable value only, instead of making changes everywhere in the code where the value apears. The values we add for each variable here are the options that appear on the citation template's dropdown list as the user clicks on the 'Cite' option. So, we can even keep the options or rather have the variable's values in the translated form.
+Same way, I have had replaced the hard coded value in the Media Wiki:RefToolbarMessages-en.js file with variable names.
+#The variable names and their values need to be same for both these files.
+
+Adding the templates
+
+The citation option is added to the EditToolbar by following the above steps, but the references will not work properly unless we add the Templates properly to our wiki.
+Eg:
+Template:Cite web
+Template:Cite news
+Template:Cite book
+Template:Cite journal
+
+These template files are generally same in all Wikipedias (i.e. the standard one as used in English Wikipedia) and thus can be directly copied from the English Wikipedia. Though the files are so badly written, that being able to modify them in any manner requires some great skills (which I surely did lack).
+Note: If you have made changes in your RefToolbarLegacy.js file and have replaced the variable's values with the local version of the standard values like:
+
+var option1="ওয়েব উদ্ধৃত করুন ";
+var option2="খবর উদ্ধৃত করুন";
+var option3="বই উদ্ধৃত করুন";
+var option4="জার্নাল উদ্ধৃত করুন";
+
+In that case, you will need to create the Templates with the same names. Like, instead of 'Template:Cite web', you will need to create 'Template: ওয়েব উদ্ধৃত করুন'. These values comes from the RefToolbarLegacy.js page and thus the Template requirements will be as per the variable values. We will only need to change the name of the template, the entire code can remain unchanged and the fucntionalities provided will be the same and perfect.
+My attempt to modify this code couldn't be a success but if someone else can get this job done, will probably be a great help.
+
+
+
+
+
+
+
